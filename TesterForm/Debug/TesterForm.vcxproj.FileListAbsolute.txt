@@ -1,0 +1,5 @@
+C:\Users\marti\Desktop\ŠKOLA\UDAJOVKY\Semestralka1\TesterForm\Debug\TesterForm.vcxprojAssemblyReference.cache
+C:\Users\marti\Desktop\ŠKOLA\UDAJOVKY\Semestralka1\TesterForm\Debug\TesterForm.exe
+C:\Users\marti\Desktop\ŠKOLA\UDAJOVKY\Semestralka1\TesterForm\Debug\TesterForm.pdb
+C:\Users\marti\Desktop\ŠKOLA\UDAJOVKY\Semestralka1\TesterForm\Debug\TesterForm.MyForm.resources
+C:\Users\marti\Desktop\ŠKOLA\UDAJOVKY\Semestralka1\TesterForm\Debug\TesterForm.vcxproj.GenerateResource.cache
