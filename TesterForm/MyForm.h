@@ -1,4 +1,6 @@
 #pragma once
+#include <iostream>
+#include "StructureTester.h";
 
 namespace TesterForm {
 
@@ -9,6 +11,8 @@ namespace TesterForm {
 	using namespace System::Data;
 	using namespace System::Drawing;
 
+	using namespace std;
+
 	/// <summary>
 	/// Summary for MyForm
 	/// </summary>
@@ -18,9 +22,10 @@ namespace TesterForm {
 		MyForm(void)
 		{
 			InitializeComponent();
-			//
-			//TODO: Add the constructor code here
-			//
+			this->tester = new StructureTester();
+			// zavoalt do listenara tester->testList();
+			tester->testList();
+			
 		}
 
 	protected:
@@ -32,6 +37,7 @@ namespace TesterForm {
 			if (components)
 			{
 				delete components;
+				delete tester;
 			}
 		}
 	private: System::Windows::Forms::Label^ label1;
@@ -42,6 +48,8 @@ namespace TesterForm {
 		/// Required designer variable.
 		/// </summary>
 		System::ComponentModel::Container ^components;
+		// tester pre celu instanciu 
+		StructureTester* tester;
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -50,6 +58,8 @@ namespace TesterForm {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+
+		
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->SuspendLayout();
 			// 
