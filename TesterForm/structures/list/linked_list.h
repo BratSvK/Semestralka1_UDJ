@@ -170,6 +170,8 @@ namespace structures
 		};
 	};
 
+	// -- linkedlistitem ...............
+
 	template<typename T>
 	inline LinkedListItem<T>::LinkedListItem(T data):
 		DataItem<T>(data),
@@ -202,12 +204,13 @@ namespace structures
 		next_ = next;
 	}
 
+	// -------------LINKED LIST ------------------
 	template<typename T>
 	inline LinkedList<T>::LinkedList():
 		List(),
 		size_(0),
 		first_(nullptr),
-		last_(nullptr)
+		last_(nullptr)					// rychli pristup na koniec zoznamu 
 	{
 	}
 
@@ -215,14 +218,13 @@ namespace structures
 	inline LinkedList<T>::LinkedList(const LinkedList<T>& other):
 		LinkedList()
 	{
-		//TODO 04: LinkedList
-		throw std::exception("LinkedList<T>::LinkedList: Not implemented yet.");
+		*this = other;
 	}
 
 	template<typename T>
 	inline LinkedList<T>::~LinkedList()
 	{
-		//TODO 04: LinkedList
+		clear();
 	}
 
 	template<typename T>
@@ -250,64 +252,198 @@ namespace structures
 	template<typename T>
 	inline LinkedList<T>& LinkedList<T>::operator=(const LinkedList<T>& other)
 	{
-		//TODO 04: LinkedList
-		throw std::exception("LinkedList<T>::operator=: Not implemented yet.");
+		// dva linkedaListy do seba chceme priradit 
+		if (this != &other)
+		{
+			// seba vycistim a pridam do seba ten ktory chceme 
+			clear();
+			// potrebujem hlboku kopiu spravit
+			for (T data : other)				// potrebujeme iterator na toto !!! 
+			{
+				add(data);
+			}
+		}
+		return *this;
 	}
 
 	template<typename T>
 	inline T & LinkedList<T>::operator[](const int index)
 	{
-		//TODO 04: LinkedList
-		throw std::exception("LinkedList<T>::operator[]: Not implemented yet.");
+		// z[2] = chcem udaje co su vnutri
+		LinkedListItem<T>* item = getItemAtIndex(index);
+		// potrebujem data z itemu na ktory ukazuje 
+		return item->accessData();
 	}
 
 	template<typename T>
 	inline const T LinkedList<T>::operator[](const int index) const
 	{
-		//TODO 04: LinkedList
-		throw std::exception("LinkedList<T>::operator[]: Not implemented yet.");
+		// z[2] = chcem udaje co su vnutri
+		LinkedListItem<T>* item = getItemAtIndex(index);
+		// potrebujem data z itemu na ktory ukazuje 
+		return item->accessData();
 	}
+
+	// zacneme TYMTO 
 
 	template<typename T>
 	inline void LinkedList<T>::add(const T & data)
 	{
-		//TODO 04: LinkedList
-		throw std::exception("LinkedList<T>::add: Not implemented yet.");
+		// ako prve treba vytvorit linkedlistitem
+		LinkedListItem<T>* newItem = new LinkedListItem<T>(data);
+		
+		// musime do zoznamu zaradit
+		if (size_ == 0)
+		{
+			first_ = newItem;			// dalsi prvok je nullptr
+		}
+		else {
+			// ak obsahuje nejake udaje
+			last_->setNext(newItem);
+		}
+		
+		last_ = newItem;
+		// zvysim velkom zoznamu
+		size_++;
 	}
 
 	template<typename T>
 	inline void LinkedList<T>::insert(const T & data, const int index)
 	{
-		//TODO 04: LinkedList
-		throw std::exception("LinkedList<T>::insert: Not implemented yet.");
+		if (index == static_cast<int>(size_))
+		{
+			// vkladam na koniec
+			add(data);
+		}
+		else
+		{
+			DSRoutines::rangeCheckExcept(index, size_, "Invalid index in LinkedList");
+
+			LinkedListItem<T>* newItem = new LinkedListItem<T>(data);
+			// pozor na smerniky first a last 
+			// vkladanie na zaciatok
+			if (index == 0)
+			{
+				newItem->setNext(first_);
+				first_ = newItem;
+			}
+			else
+			{
+				// do stredu niekde
+				LinkedListItem<T>* prevItem = getItemAtIndex(index - 1);
+				newItem->setNext(prevItem->getNext());
+				prevItem->setNext(newItem);
+			}
+			size_++;
+		}
 	}
 
 	template<typename T>
 	inline bool LinkedList<T>::tryRemove(const T & data)
 	{
-		//TODO 04: LinkedList
-		throw std::exception("LinkedList<T>::tryRemove: Not implemented yet.");
+		// radova zlozitost nam ostasva O(n)
+		int index = getIndexOf(data);
+		if (index == -1)
+		{
+			return false;
+		}
+		else
+		{
+			removeAt(index);
+			return true;
+		}
 	}
 
 	template<typename T>
 	inline T LinkedList<T>::removeAt(const int index)
 	{
-		//TODO 04: LinkedList
-		throw std::exception("LinkedList<T>::removeAt: Not implemented yet.");
+		// premiesat zoznam -> nahodne si vyberieme prvok dame removeAT -> opatovne ho vieme zaradit na koniec a mame zamiesane 
+		DSRoutines::rangeCheckExcept(index, size_, "Invalid index in LinkedList!");
+
+		// potrebujeme zmazat prislusny item s datami
+		LinkedListItem<T>* delItem;
+		// na zmeny treba davat pozor na first a last 
+		if (size_ == 1)
+		{
+			delItem = first_;
+			first_ = nullptr;
+			last_ = nullptr;
+		}
+		else // v zoizname je viac ako jeden prvok
+		{
+			if (index == 0)
+			{
+				delItem = first_;
+				first_ = first_->getNext();
+			}
+			else // odoberam niekde zo stredu 
+			{
+				LinkedListItem<T>* prevItem = getItemAtIndex(index - 1);
+				delItem = prevItem->getNext();
+				prevItem->setNext(delItem->getNext());
+				// ak mazem na konci tak treba smernik last presmerovat 
+				if (last_ == delItem)
+				{
+					last_ = prevItem;
+				}
+			}
+		}
+
+
+		T result = delItem->accessData();
+		delete delItem;
+		size_--;
+		return result;
 	}
+
 
 	template<typename T>
 	inline int LinkedList<T>::getIndexOf(const T & data)
 	{
-		//TODO 04: LinkedList
-		throw std::exception("LinkedList<T>::getIndexOf: Not implemented yet.");
+		// takto cesta nevedie 
+		/*
+		for (int i = 0; i < static_cast<int>(size_); i++)
+		{
+			// vzdy prechadza O(n) => for + [] = 0n2 
+			if ((*this)[i] == data)
+			{
+				return i;
+			}
+		}
+		return -1;
+		*/
+
+		// ---- EFEKTIVNEJSIA CESTA ---
+		LinkedListItem<T>* item = first_;
+		int index = 0;
+		while (item != nullptr)
+		{
+			if (item->accessData() == data)
+			{
+				return index;
+			}
+			index++;
+			item = item->getNext();
+		}
+		return -1;
 	}
 
 	template<typename T>
 	inline void LinkedList<T>::clear()
 	{
-		//TODO 04: LinkedList
-		throw std::exception("LinkedList<T>::clear: Not implemented yet.");
+		// potrebujem dva ukazovatele na aktualny a ten ktory sa ide mazat dalsi, zelenu a cervenu sipku 
+		LinkedListItem<T>* delItem = first_;
+		LinkedListItem<T>* nextItem = nextItem;
+		while (delItem != nullptr)
+		{
+			// vypytam si dalsiu sipku
+			nextItem = delItem->getNext();
+			delete delItem;
+			delItem = nextItem;
+		}
+		size_ = 0;
+		first_ = nullptr;
+		last_ = nullptr;
 	}
 
 	template<typename T>
@@ -325,9 +461,20 @@ namespace structures
 	template<typename T>
 	inline LinkedListItem<T>* LinkedList<T>::getItemAtIndex(int index) const
 	{
-		//TODO 04: LinkedList
-		throw std::exception("LinkedList<T>::getItemAtIndex: Not implemented yet.");
+		// dostat sa na dany prvok spristupnit linkedListItem
+		DSRoutines::rangeCheckExcept(index, size_, "Invalid index in LinkedList!");
+		LinkedListItem<T>* result = first_;
+		 
+		// postupne prechadzam na prvok kde chcem 
+		for (int i = 0; i < index; i++)
+		{
+			result = result->getNext();
+		}
+		
+		return result;
 	}
+
+	// -- iterator 5 tyzden 
 
 	template<typename T>
 	inline LinkedList<T>::LinkedListIterator::LinkedListIterator( LinkedListItem<T> * position):

@@ -1,8 +1,11 @@
 ﻿  MyForm.cpp
-C:\Users\marti\Desktop\ŠKOLA\UDAJOVKY\Semestralka1\TesterForm\MyForm.h(3,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-C:\Users\marti\Desktop\ŠKOLA\UDAJOVKY\Semestralka1\TesterForm\StructureTester.h(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-C:\Users\marti\Desktop\ŠKOLA\UDAJOVKY\Semestralka1\TesterForm\ListTester.h(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-C:\Users\marti\Desktop\ŠKOLA\UDAJOVKY\Semestralka1\TesterForm\ListTester.h(3,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-C:\Users\marti\Desktop\ŠKOLA\UDAJOVKY\Semestralka1\TesterForm\MyForm.cpp(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+C:\Users\marti\Desktop\ŠKOLA\UDAJOVKY-sobot_opak\Semestralka1\TesterForm\MyForm.h(3,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+C:\Users\marti\Desktop\ŠKOLA\UDAJOVKY-sobot_opak\Semestralka1\TesterForm\StructureTester.h(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+C:\Users\marti\Desktop\ŠKOLA\UDAJOVKY-sobot_opak\Semestralka1\TesterForm\ListTester.h(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+C:\Users\marti\Desktop\ŠKOLA\UDAJOVKY-sobot_opak\Semestralka1\TesterForm\ListTester.h(3,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+C:\Users\marti\Desktop\ŠKOLA\UDAJOVKY-sobot_opak\Semestralka1\TesterForm\MyForm.h(28,14): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\marti\Desktop\ŠKOLA\UDAJOVKY-sobot_opak\Semestralka1\TesterForm\MyForm.h(271,43): warning C4244: 'argument': conversion from 'wchar_t' to 'char', possible loss of data
+C:\Users\marti\Desktop\ŠKOLA\UDAJOVKY-sobot_opak\Semestralka1\TesterForm\MyForm.cpp(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+C:\Users\marti\Desktop\ŠKOLA\UDAJOVKY-sobot_opak\Semestralka1\TesterForm\structures\list\linked_list.h(436): warning C4700: uninitialized local variable 'nextItem' used
   MyForm.obj : MSIL module encountered; incremental linking is disabled for MSIL; performing full link
-  TesterForm.vcxproj -> C:\Users\marti\Desktop\ŠKOLA\UDAJOVKY\Semestralka1\TesterForm\Debug\TesterForm.exe
+  TesterForm.vcxproj -> C:\Users\marti\Desktop\ŠKOLA\UDAJOVKY-sobot_opak\Semestralka1\TesterForm\Debug\TesterForm.exe

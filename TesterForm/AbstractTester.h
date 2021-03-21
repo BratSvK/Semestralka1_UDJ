@@ -8,6 +8,7 @@ public:
 	AbstractTester(int itemsCount, char scenario);
 
 	char getScenario();
+	int getItemsCount();
 
 private:
 	// definicia poctu operaci nad testom
@@ -25,4 +26,7 @@ AbstractTester::AbstractTester(int itemsCount, char scenario) {
 
 char AbstractTester::getScenario() {
 	return _scenario;
+}
+int AbstractTester::getItemsCount() {
+	return _itemsCount;
 }
